@@ -7,6 +7,8 @@ const app = express();
 const PORT = 3001;
 
 app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //Route to get the notes page
 app.get('/notes', (req, res) =>
@@ -33,10 +35,12 @@ app.get('/api/notes/:id', (req, res) => {
 
 
 
+//Route to save a note
+app.post('/api/notes/', (req, res) => {
+console.log(req.body);
+res.send(req.body);
 
-// app.post('/api/notes/:id', (req, res) => {
-
-//   });
+  });
 
 
 app.get('*', (req, res) =>
