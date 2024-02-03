@@ -1,21 +1,42 @@
 const express = require('express');
 const path = require('path');
-const savedNotes = require('./db/db.json')
+const savedNotes = require('./db/db.json');
+const fs = require('fs');
 
 const app = express();
 const PORT = 3001;
 
 app.use(express.static('public'));
 
+//Route to get the notes page
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, 'public/notes.html'))
 );
 
+
+
+
+
+
+//Route to load all previous saved notes
 app.get('/api/notes', (req, res) => res.json(savedNotes));
 
-app.post('/api/notes', (req, res) =>
-lorem
-);
+
+
+
+//Route to load a specific note upon clicking it
+app.get('/api/notes/:id', (req, res) => {
+  res.json(activeNote)
+});
+
+
+
+
+
+
+// app.post('/api/notes/:id', (req, res) => {
+
+//   });
 
 
 app.get('*', (req, res) =>
