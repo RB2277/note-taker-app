@@ -37,8 +37,16 @@ app.get('/api/notes/:id', (req, res) => {
 
 //Route to save a note
 app.post('/api/notes/', (req, res) => {
-console.log(req.body);
-res.send(req.body);
+
+const {title, text} = req.body
+
+if(title && text) {
+  const newNote = {
+    title,
+    text
+  }
+  console.log(newNote)
+}
 
   });
 
