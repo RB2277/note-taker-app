@@ -38,9 +38,12 @@ app.get('/api/notes/:id', (req, res) => {
 
 
 //Route to save a note
+//This code is a modified snippet from lesson 19 of module 11
 app.post('/api/notes/', (req, res) => {
 
 const {title, text} = req.body
+
+const savedNotes = fs.readFileSync('./db/db.json', 'utf-8')
 
 if(title && text) {
   const newNote = {
@@ -48,14 +51,26 @@ if(title && text) {
     text,
     id: uuidv4(),
   }
+
   console.log(newNote)
+
+const notes = JSON.parse(savedNotes)
+notes.push(newNote)
+const JsonString = JSON.stringify(notes, null, 2)
+  fs.writeFileSync('./db/db.json', JsonString)
 }
-  });
+});
+
+
+
+
+
+
+
 
 app.get('*', (req, res) =>
  res.sendFile(path.join(__dirname, 'public/index.html'))
  );
-
 
 
 
