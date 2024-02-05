@@ -1,11 +1,11 @@
 //All of the required packages used throughout the file
 const express = require('express');
 const path = require('path');
-const savedNotes = require('./db/db.json');
+const savedNotes = require('./db/db.json')
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
-//Initializes express and sets the PORT to 3001
+//Initializes express and sets the PORT to process.env.PORT OR 3001
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -28,7 +28,13 @@ app.get('/notes', (req, res) =>
 
 
 //Route to load all previous saved notes
-app.get('/api/notes', (req, res) => res.json(savedNotes));
+app.get('/api/notes', (req, res) => {
+  // Read the updated notes from db.json file
+  fs.readFile('./db/db.json', 'utf8', (err, data) => {
+    const update = JSON.parse(data)
+    res.json(update)
+  })
+});
 
 
 //Route to load a specific note upon clicking it
@@ -45,22 +51,19 @@ const {title, text} = req.body
 
 const savedNotes = fs.readFileSync('./db/db.json', 'utf-8')
 
-if(title && text) {
   const newNote = {
     title,
     text,
     id: uuidv4(),
   }
 
-  console.log(newNote)
-
 const notes = JSON.parse(savedNotes)
 notes.push(newNote)
 const JsonString = JSON.stringify(notes, null, 2)
   fs.writeFileSync('./db/db.json', JsonString)
 
-  res.json({ message: 'Your note has been saved!', notes })
-}
+res.json(notes)
+
 });
 
 
@@ -76,20 +79,18 @@ app.delete('/api/notes/:id', (req, res) => {
     const JsonString = JSON.stringify(filteredNotes, null, 2)
  fs.writeFileSync('./db/db.json', JsonString)
 
- res.json({status: "Note deleted", notes})
+ res.json(filteredNotes)
   }
 
 })
 
 
-
-
+//Wildcard route to redirect all unknown requests to the homepage
 app.get('*', (req, res) =>
  res.sendFile(path.join(__dirname, 'public/index.html'))
  );
 
-
-
+//Tells express to listen to the port
 app.listen(PORT, () =>
   console.log(`Example app listening at http://localhost:${PORT}`)
 );
