@@ -14,7 +14,7 @@ This project allows you to create notes with a title and text, and save them. Th
 
 ## Installation
 
-If you wish to instead run the app locally, feel free to clone the repo, run npm install, then run node server.js
+If you wish to run the app locally, feel free to clone the repo, run npm install within the terminal, then run node server.js
 
 ## Usage
 
