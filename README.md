@@ -14,11 +14,15 @@ This project allows you to create notes with a title and text, and save them. Th
 
 ## Installation
 
-N/A
+If you wish to instead run the app locally, feel free to clone the repo, run npm install, then run node server.js
 
 ## Usage
 
-N/A
+If you wish to use the app, feel free to visit the heroku site where I have it deployed!
+
+https://rb-note-taker-1cfd140edddc.herokuapp.com/
+
+![Example Image of the site](/public/assets/images/exampleImage.png)
 
 ## License
 
