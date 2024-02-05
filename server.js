@@ -7,7 +7,7 @@ const { v4: uuidv4 } = require('uuid');
 
 //Initializes express and sets the PORT to 3001
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 //Express middleware
 app.use(express.static('public'));
